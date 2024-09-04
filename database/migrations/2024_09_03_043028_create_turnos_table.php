@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('turnos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+        $table->time('start_time'); // Hora de inicio del turno
+        $table->time('end_time'); // Hora de fin del turno
+        $table->date('shift_date'); // Fecha del turno
+        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');  // Relación con operadores (usuarios)
+        $table->timestamps();
         });
     }
 
