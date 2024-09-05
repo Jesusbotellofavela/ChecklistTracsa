@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('generadores', function (Blueprint $table) {
             $table->id();
-            $table-> string(name);
-            $table-> string(model);
-            $table-> string(serial_number);
+            $table-> string('name');
+            $table-> string('model');
+            $table-> string('serial_number');
             $table->timestamps();
         });
     }
