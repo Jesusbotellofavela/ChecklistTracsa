@@ -10,5 +10,10 @@ class Generadores extends Model
 {
     use HasFactory;
 
-    use Searchable;
+    // Definir la tabla si el nombre no sigue el estándar "plural"
+    protected $table = 'generadores';
+
+    // Si hay campos que no deben ser asignables en masa, protégelos
+    protected $guarded = ['id'];
+
 }
