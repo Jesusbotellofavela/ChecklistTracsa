@@ -1,117 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+<script src="https://unpkg.com/alpinejs" defer></script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Estilo -->
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
-
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>RBOSTUDIO</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Scripts -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body>
-    <div id="app">
-    @auth
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-            <a class="navbar-brand" href="{{ url('/home') }}">
-                <img src="{{ asset('images/RSPNG.png') }}" alt="RBO" style="height: 80px;">
-                RBO
-            </a>
+<body class="font-sans antialiased bg-gray-100">
+    <div class="min-h-screen">
+        @include('layouts.navigation')
 
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('generadores.index') }}">Generadores</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('turnos.index') }}">Turnos</a>
-                    </li>
-
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('equipo.index') }}">Equipo Fotografico</a>
-                    </li>
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('transaccion.index') }}">Transacciones Financieras</a>
-                    </li>
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('sesion.index') }}">Sesiones</a>
-                    </li>
-
-                    <li class="nav-item">
-                     <a class="nav-link" href="{{ route('galeria.index') }}">Galeria</a>
-                    </li>
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
                 </div>
-            </div>
-        </nav>
-        @endauth
+            </header>
+        @endif
 
-        <main class="py-4">
-            @yield('content')
+        <!-- Page Content -->
+        <main>
+            @yield('content') <!-- Sección para el contenido dinámico -->
         </main>
     </div>
-    @stack('scripts')
 </body>
 </html>

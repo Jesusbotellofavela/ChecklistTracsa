@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-color: rgb(240, 244, 219);
+}
+
+/* app.css */
+.navbar-custom {
+    background-color: #fac41e !important;
+}

@@ -39,6 +39,7 @@ class GeneradoresController extends Controller
         // Crear un nuevo generador
         Generadores::create($validated);
 
+
         return redirect()->route('generadores.index')->with('success', 'Generador creado exitosamente.');
     }
 
@@ -55,8 +56,8 @@ class GeneradoresController extends Controller
     // Método para editar un generador existente
     public function edit($id)
     {
-        $generador = Generadores::findOrFail($id);
-        return view('GeneradoresEdit', compact('generador'));
+        $generador = Generadores::findOrFail($id); // Buscar el generador por su ID
+        return view('GeneradoresEdit', compact('generador')); // Cargar la vista con el generador
     }
 
     // Método para actualizar un generador
@@ -69,9 +70,8 @@ class GeneradoresController extends Controller
             'serial_number' => 'required|string|max:255',
         ]);
 
-        // Encontrar y actualizar el generador
         $generador = Generadores::findOrFail($id);
-        $generador->update($validated);
+        $generador->update($validated); // Actualiza el generador con los datos validados
 
         return redirect()->route('generadores.index')->with('success', 'Generador actualizado exitosamente.');
     }

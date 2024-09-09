@@ -2,26 +2,24 @@
 
 @section('content')
     <div class="container">
-        <h1>Detalles del Generador</h1>
-        <div class="card">
-            <div class="card-header">
-                <h2>Generador: {{ $generador->name }}</h2>
+        <h1>Editar Generador</h1>
+        <a href="{{ route('generadores.index') }}" class="btn btn-primary">Regresar</a>
+        <form action="{{ route('generadores.update', $generador->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" class="form-control" value="{{ $generador->name }}" required>
             </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item"><strong>ID:</strong> {{ $generador->id }}</li>
-                    <li class="list-group-item"><strong>Nombre:</strong> {{ $generador->name }}</li>
-                    <li class="list-group-item"><strong>Modelo:</strong> {{ $generador->model }}</li>
-                    <li class="list-group-item"><strong>Número de Serie:</strong> {{ $generador->serial_number }}</li>
-                </ul>
-                <a href="{{ route('generadores.edit', $generador->id) }}" class="btn btn-warning mt-3">Editar</a>
-                <form action="{{ route('generadores.destroy', $generador->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger mt-3">Eliminar</button>
-                </form>
-                <a href="{{ route('generadores.index') }}" class="btn btn-secondary mt-3">Volver a la Lista</a>
+            <div class="form-group">
+                <label for="model">Modelo</label>
+                <input type="text" name="model" class="form-control" value="{{ $generador->model }}" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="serial_number">Número de Serie</label>
+                <input type="text" name="serial_number" class="form-control" value="{{ $generador->serial_number }}" required>
+            </div>
+            <button type="submit" class="btn btn-success">Actualizar</button>
+        </form>
     </div>
 @endsection

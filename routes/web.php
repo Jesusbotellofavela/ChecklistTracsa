@@ -1,49 +1,42 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneradoresController;
 use App\Http\Controllers\LecturasController;
 use App\Http\Controllers\ParametrosController;
 use App\Http\Controllers\TurnosController;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
+// Página de inicio
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-// Rutas para el recurso Generadores
+// Rutas públicas, que no requieren autenticación
 Route::get('generadores/create', [GeneradoresController::class, 'create'])->name('generadores.create');
-
-// Rutas para el recurso Generadores
-Route::resource('generadores', GeneradoresController::class)
-    ->except(['create', 'store', 'update', 'destroy']); // Ajusta según tus necesidades
-
-// Ruta para el almacenamiento de un nuevo generador
 Route::post('generadores', [GeneradoresController::class, 'store'])->name('generadores.store');
 
-// Ruta para la actualización de un generador
-Route::put('generadores/{id}', [GeneradoresController::class, 'update'])->name('generadores.update');
+// Agrupar rutas que requieren autenticación con el middleware 'auth'
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['verified'])->name('dashboard');
 
-// Ruta para la eliminación de un generador
-Route::delete('generadores/{id}', [GeneradoresController::class, 'destroy'])->name('generadores.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Ruta para la vista específica de un generador (mostrar)
-Route::get('generadores/{id}', [GeneradoresController::class, 'show'])->name('generadores.show');
+    // Rutas protegidas para el recurso Generadores
+    Route::get('generadores', [GeneradoresController::class, 'index'])->name('generadores.index');
+    Route::get('generadores/{id}', [GeneradoresController::class, 'show'])->name('generadores.show');
+    Route::get('generadores/{id}/edit', [GeneradoresController::class, 'edit'])->name('generadores.edit');
+    Route::put('generadores/{id}', [GeneradoresController::class, 'update'])->name('generadores.update');
+    Route::delete('generadores/{id}', [GeneradoresController::class, 'destroy'])->name('generadores.destroy');
 
-// Ruta para descargar datos de generadores (si aplicable)
-Route::get('generadores/descargar', [GeneradoresController::class, 'pdf'])->name('generadores.pdf');
+    // Rutas protegidas para otros recursos
+    Route::resource('lecturas', LecturasController::class);
+    Route::resource('parametros', ParametrosController::class);
+    Route::resource('turnos', TurnosController::class);
+});
 
-// Ruta para búsqueda de generadores (si aplicable)
-Route::get('generadores/search', [GeneradoresController::class, 'search'])->name('generadores.search');
-
-
-
-
-// Rutas para el recurso Lecturas
-Route::resource('lecturas', LecturasController::class);
-
-// Rutas para el recurso Parametros
-Route::resource('parametros', ParametrosController::class);
-
-// Rutas para el recurso Turnos
-Route::resource('turnos', TurnosController::class);
+require __DIR__.'/auth.php';
