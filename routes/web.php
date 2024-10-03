@@ -35,7 +35,20 @@ Route::middleware('auth')->group(function () {
 
     // Rutas protegidas para otros recursos
     Route::resource('lecturas', LecturasController::class);
-    Route::resource('parametros', ParametrosController::class);
+
+
+
+    // Grupo de rutas para parámetros
+    Route::get('parametros', [ParametrosController::class, 'index'])->name('parametros.index');
+    Route::get('parametros/create', [ParametrosController::class, 'create'])->name('parametros.create');
+    Route::post('parametros', [ParametrosController::class, 'store'])->name('parametros.store');
+    Route::get('parametros/{id}', [ParametrosController::class, 'show'])->name('parametros.show');
+    Route::get('parametros/{id}/edit', [ParametrosController::class, 'edit'])->name('parametros.edit');
+    Route::put('parametros/{id}', [ParametrosController::class, 'update'])->name('parametros.update');
+    Route::delete('parametros/{id}', [ParametrosController::class, 'destroy'])->name('parametros.destroy');
+
+
+
     Route::resource('turnos', TurnosController::class);
 });
 

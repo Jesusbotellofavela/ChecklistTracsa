@@ -14,8 +14,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:flex sm:space-x-8 sm:ml-10">
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-black hover:text-black">
-    {{ __('Dashboard') }}
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-black hover:text-black hover:underline">
+                        {{ __('Dashboard') }}
+                </x-nav-link>
+                <x-nav-link :href="route('generadores.index')" :active="request()->routeIs('generadores.*')" class="text-black hover:text-black hover:underline">
+                    {{ __('Generadores') }}
+                </x-nav-link>
+                <x-nav-link :href="route('parametros.index')" :active="request()->routeIs('parametros.*')" class="text-black hover:text-black hover:underline">
+    {{ __('Parámetros') }}
 </x-nav-link>
                     <!-- Añadir más enlaces de navegación aquí si es necesario -->
                 </div>
@@ -69,6 +75,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('generadores.index')" :active="request()->routeIs('generadores.*')">
+                 {{ __('Generadores') }}
             </x-responsive-nav-link>
         </div>
 
