@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Vite Styles and Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="font-sans antialiased bg-gray-100">
-    <div class="min-h-screen">
-        @include('layouts.navigation')
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
+        <!-- FullCalendar CSS -->
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css' rel='stylesheet' />
 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased">
+        <div>
+            @include('layouts.navigation')
+
+            <!-- Page Heading -->
+            <header class="py-6">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    @yield('header')  <!-- Mostrar el header sin verificación -->
                 </div>
             </header>
-        @endif
-
-        <!-- Page Content -->
-        <main>
-            @yield('content') <!-- Sección para el contenido dinámico -->
-        </main>
-    </div>
-</body>
+            @stack('scripts')
+            <!-- Page Content -->
+            <main>
+                @yield('content')
+            </main>
+        </div>
+    </body>
 </html>

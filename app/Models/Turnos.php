@@ -10,5 +10,14 @@ class Turnos extends Model
 {
     use HasFactory;
 
-    use Searchable;
+    // Definir la relación con el modelo User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Asegúrate de que los campos sean rellenables
+    protected $fillable = [
+        'start_time', 'end_time', 'shift_date', 'user_id',
+    ];
 }

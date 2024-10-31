@@ -5,6 +5,7 @@ use App\Http\Controllers\LecturasController;
 use App\Http\Controllers\ParametrosController;
 use App\Http\Controllers\TurnosController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Turnos; // Asegúrate de que este sea el modelo correcto
 use Illuminate\Support\Facades\Route;
 
 // Página de inicio
@@ -17,11 +18,14 @@ Route::get('generadores/create', [GeneradoresController::class, 'create'])->name
 Route::post('generadores', [GeneradoresController::class, 'store'])->name('generadores.store');
 
 // Agrupar rutas que requieren autenticación con el middleware 'auth'
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['verified'])->name('dashboard');
+        $turnos = Turnos::with('user')->get(); // Asegúrate de que este sea el nombre correcto
+        return view('dashboard', compact('turnos'));
+    })->name('dashboard');
 
+    // Rutas de perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -36,8 +40,6 @@ Route::middleware('auth')->group(function () {
     // Rutas protegidas para otros recursos
     Route::resource('lecturas', LecturasController::class);
 
-
-
     // Grupo de rutas para parámetros
     Route::get('parametros', [ParametrosController::class, 'index'])->name('parametros.index');
     Route::get('parametros/create', [ParametrosController::class, 'create'])->name('parametros.create');
@@ -47,9 +49,17 @@ Route::middleware('auth')->group(function () {
     Route::put('parametros/{id}', [ParametrosController::class, 'update'])->name('parametros.update');
     Route::delete('parametros/{id}', [ParametrosController::class, 'destroy'])->name('parametros.destroy');
 
-
-
-    Route::resource('turnos', TurnosController::class);
+    // Rutas para Turnos
+    Route::get('turnos', [TurnosController::class, 'index'])->name('turnos.index');            // Lista de turnos
+    Route::get('turnos/create', [TurnosController::class, 'create'])->name('turnos.create');   // Formulario de creación
+    Route::post('turnos', [TurnosController::class, 'store'])->name('turnos.store');           // Almacenar nuevo turno
+    Route::get('turnos/{id}', [TurnosController::class, 'show'])->name('turnos.show');         // Mostrar turno específico
+    Route::get('turnos/{id}/edit', [TurnosController::class, 'edit'])->name('turnos.edit');    // Formulario de edición
+    Route::put('turnos/{id}', [TurnosController::class, 'update'])->name('turnos.update');     // Actualizar turno
+    Route::delete('turnos/{id}', [TurnosController::class, 'destroy'])->name('turnos.destroy'); // Eliminar turno
+    // Ruta para obtener eventos
+    Route::get('turnos/eventos', [TurnosController::class, 'obtenerEventos'])->name('turnos.eventos');
 });
 
+// Requiere autenticación para todas las rutas
 require __DIR__.'/auth.php';

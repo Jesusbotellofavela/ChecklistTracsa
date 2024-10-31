@@ -4,10 +4,36 @@
 
 
 body {
-    background-color: rgb(240, 244, 219);
+    background-color: rgb(252, 252, 252);
 }
 
 /* app.css */
 .navbar-custom {
-    background-color: #fac41e !important;
+    background-color: #f0d070 !important;
+}
+
+/* Personaliza el fondo, bordes o títulos */
+.fc .fc-toolbar {
+    background-color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+/* Estilos personalizados del calendario */
+.fc .fc-daygrid-day {
+    background-color: #ffffff; /* Fondo de los días en CoreUI */
+    color: #333;
+}
+.fc .fc-event {
+    background-color: #5fcf64; /* Color de evento en Bootstrap */
+    color: #fff;
+}
+
+
+/* Ajusta colores de los días y eventos */
+.fc-daygrid-event {
+    background-color: #0c0b0b;
+    color: rgb(255, 255, 255);
+    border-radius: 4px;
+}
+.fc-day-sun {
+    background-color: #f8d7da; /* Cambia el fondo de los domingos */
 }
