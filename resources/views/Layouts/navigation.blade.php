@@ -26,6 +26,9 @@
                 <x-nav-link :href="route('turnos.index')" :active="request()->routeIs('turnos.*')" class="text-gray-900 hover:text-black hover:underline">
                     {{ __('Turnos') }}
                 </x-nav-link>
+                <x-nav-link :href="route('lecturas.index')" :active="request()->routeIs('lecturas.*')" class="text-gray-900 hover:text-black hover:underline">
+                    {{ __('Lecturas') }}
+                </x-nav-link>
                     <!-- Añadir más enlaces de navegación aquí si es necesario -->
                 </div>
             </div>

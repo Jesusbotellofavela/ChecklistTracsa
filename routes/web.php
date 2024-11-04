@@ -5,7 +5,8 @@ use App\Http\Controllers\LecturasController;
 use App\Http\Controllers\ParametrosController;
 use App\Http\Controllers\TurnosController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Turnos; // Asegúrate de que este sea el modelo correcto
+use App\Models\Turnos;
+use App\Models\Lecturas; // Asegúrate de que este sea el modelo correcto
 use Illuminate\Support\Facades\Route;
 
 // Página de inicio
@@ -37,8 +38,15 @@ Route::middleware(['auth'])->group(function () {
     Route::put('generadores/{id}', [GeneradoresController::class, 'update'])->name('generadores.update');
     Route::delete('generadores/{id}', [GeneradoresController::class, 'destroy'])->name('generadores.destroy');
 
+
     // Rutas protegidas para otros recursos
     Route::resource('lecturas', LecturasController::class);
+    Route::get('lecturas', [LecturasController::class, 'index'])->name('lecturas.index');
+    Route::get('lecturas/{id}', [LecturasController::class, 'show'])->name('lecturas.show');
+    Route::get('lecturas/{id}/edit', [LecturasController::class, 'edit'])->name('lecturas.edit');
+    Route::put('lecturas/{id}', [LecturasController::class, 'update'])->name('lecturas.update');
+    Route::delete('lecturas/{id}', [LecturasController::class, 'destroy'])->name('lecturas.destroy');
+
 
     // Grupo de rutas para parámetros
     Route::get('parametros', [ParametrosController::class, 'index'])->name('parametros.index');

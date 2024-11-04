@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@vite('resources/js/calendar.js')
 
+@vite('resources/css/app.css')
 @section('header')
     <h2 class="text-3xl font-bold text-center text-gray-900 mt-8">
         Tracsa Energía

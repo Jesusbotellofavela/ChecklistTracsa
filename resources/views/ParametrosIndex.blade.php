@@ -22,6 +22,8 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Generador</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre del Parámetro</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor minimo</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor maximo</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unidad</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                     </tr>
@@ -31,6 +33,8 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $parametro->generadores_id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->parameter_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->min_value }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->max_value }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->unit }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ route('parametros.show', $parametro->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
