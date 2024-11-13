@@ -10,8 +10,8 @@
 
             <!-- Selección de Generador -->
             <div class="mb-6">
-                <label for="generadores_id" class="block text-sm font-medium text-gray-700">Generador</label>
-                <select name="generadores_id" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                <label for="generador_id" class="block text-sm font-medium text-gray-700">Generador</label>
+                <select name="generador_id" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
                     @foreach($generadores as $generador)
                         <option value="{{ $generador->id }}">{{ $generador->name }}</option>
                     @endforeach

@@ -41,6 +41,7 @@ class LecturasController extends Controller
         // Guarda la lectura principal en la base de datos
         $lectura = Lecturas::create([
             'generador_id' => $request->generador_id,
+            "parametros" => $request->parametros,
             'fecha' => $request->fecha,
         ]);
 
