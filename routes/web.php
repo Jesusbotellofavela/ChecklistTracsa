@@ -4,9 +4,13 @@ use App\Http\Controllers\GeneradoresController;
 use App\Http\Controllers\LecturasController;
 use App\Http\Controllers\ParametrosController;
 use App\Http\Controllers\TurnosController;
+use App\Http\Controllers\LecturaParametroController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Turnos;
-use App\Models\Lecturas; // Asegúrate de que este sea el modelo correcto
+use App\Models\Lecturas;
+use App\Models\LecturaParametro;
+use App\Models\Generadores;
+use App\Models\Parametros; // Asegúrate de que este sea el modelo correcto
 use Illuminate\Support\Facades\Route;
 
 // Página de inicio
@@ -67,6 +71,15 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('turnos/{id}', [TurnosController::class, 'destroy'])->name('turnos.destroy'); // Eliminar turno
     // Ruta para obtener eventos
     Route::get('turnos/eventos', [TurnosController::class, 'obtenerEventos'])->name('turnos.eventos');
+
+    //Rutas para el registro de las lecturas
+    Route::get('lecturaparametro', [LecturaParametroController::class, 'index'])->name('lecturaparametro.index');            // Lista de turnos
+    Route::get('lecturaparametro/create', [LecturaParametroController::class, 'create'])->name('lecturaparametro.create');   // Formulario de creación
+    Route::post('lecturaparametro', [LecturaParametroController::class, 'store'])->name('lecturaparametro.store');           // Almacenar nuevo turno
+    Route::get('lecturaparametro/{id}', [LecturaParametroController::class, 'show'])->name('lecturaparametro.show');         // Mostrar turno específico
+    Route::get('lecturaparametro/{id}/edit', [LecturaParametroController::class, 'edit'])->name('lecturaparametro.edit');    // Formulario de edición
+    Route::put('lecturaparametro/{id}', [LecturaParametroController::class, 'update'])->name('lecturaparametro.update');     // Actualizar turno
+    Route::delete('lecturaparametro/{id}', [LecturaParametroController::class, 'destroy'])->name('lecturaparametro.destroy'); // Eliminar turno
 });
 
 // Requiere autenticación para todas las rutas

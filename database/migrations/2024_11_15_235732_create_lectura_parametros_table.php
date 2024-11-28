@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lecturas', function (Blueprint $table) {
-            $table->foreignId('generadores_id')->constrained('generadores')->onDelete('cascade');
+        Schema::create('lectura_parametros', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,9 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('lecturas', function (Blueprint $table) {
-            $table->dropForeign(['generadores_id']);
-            $table->dropColumn('generadores_id');
-        });
+        Schema::dropIfExists('lectura_parametros');
     }
 };

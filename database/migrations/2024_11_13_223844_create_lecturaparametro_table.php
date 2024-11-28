@@ -9,11 +9,11 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('lecturas', function (Blueprint $table) {
+        Schema::create('lecturaparametro', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('generador_id')->constrained('generadores')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->date('fecha'); // Fecha de la lectura
+            $table->foreignId('lectura_id')->constrained('lecturas')->onDelete('cascade');
+            $table->foreignId('parametro_id')->constrained('parametros')->onDelete('cascade');
+            $table->decimal('valor', 10, 2); // Valor registrado para el parámetro
             $table->timestamps();
         });
     }
@@ -22,6 +22,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('lecturas');
+        Schema::dropIfExists('lecturaparametro');
     }
 };

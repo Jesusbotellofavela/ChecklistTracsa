@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('parametros', function (Blueprint $table) {
-            $table->decimal('min_value', 10, 2)->nullable()->change(); // Permitir valores nulos
-            $table->decimal('max_value', 10, 2)->nullable()->change(); // Permitir valores nulos
+            $table->decimal('min_value', 10, 2)->nullable()->change();
+            // Permitir valores nulos
+            $table->decimal('max_value', 10, 2)->nullable()->change();
+            // Permitir valores nulos
         });
     }
 
@@ -23,8 +25,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('parametros', function (Blueprint $table) {
-            $table->decimal('min_value', 10, 2)->nullable(false)->change(); // Revertir si es necesario
-            $table->decimal('max_value', 10, 2)->nullable(false)->change(); // Revertir si es necesario
+            $table->decimal('min_value', 10, 2)->nullable()->change(); // Revertir si es necesario
+            $table->decimal('max_value', 10, 2)->nullable()->change(); // Revertir si es necesario
         });
     }
 };

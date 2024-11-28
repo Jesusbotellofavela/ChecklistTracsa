@@ -12,7 +12,7 @@ class LecturasController extends Controller
 {
     public function index()
     {
-        $lecturas = Lecturas::with('user')->paginate(10);
+        $lecturas = Lecturas::with('user', 'generador', 'parametros')->paginate(10);
         return view('LecturasIndex', compact('lecturas'));
     }
 
@@ -24,31 +24,34 @@ class LecturasController extends Controller
     public function create()
     {
         $users = User::all();
-        $generadores = Generadores::all(); // Asegúrate de tener el modelo Generador correctamente definido
-        $parametros = Parametros::all();  // Asegúrate de tener el modelo Parametro correctamente definido
+        $generadores = Generadores::all();
+        $parametros = Parametros::all();
         return view('LecturasCreate', compact('users', 'generadores', 'parametros'));
     }
 
     public function store(Request $request)
     {
         // Validación de los datos de entrada
-        $request->validate([
-            'generadores_id' => 'required|exists:generadores,id',
-            'parametros' => 'required|array',
+        $validated = $request->validate([
+            'generador_id' => 'required|exists:generadores,id',
+            'parametros' => 'nullable|array',
+            'parametros.*' => 'required|numeric', // Cada parámetro debe tener un valor numérico
             'fecha' => 'required|date',
         ]);
 
         // Guarda la lectura principal en la base de datos
         $lectura = Lecturas::create([
             'generador_id' => $request->generador_id,
-            "parametros" => $request->parametros,
+            'user_id' => auth()->id(),
             'fecha' => $request->fecha,
         ]);
 
-        // Guarda cada parámetro asociado a esta lectura
-        foreach ($request->parametros as $parametroId => $valor) {
+         // Asocia los parámetros a la lectura si se proporcionan
+    if (!empty($validated['parametros'])) {
+        foreach ($validated['parametros'] as $parametroId => $valor) {
             $lectura->parametros()->attach($parametroId, ['valor' => $valor]);
         }
+    }
 
         // Redirige al index de lecturas con un mensaje de éxito
         return redirect()->route('lecturas.index')->with('success', 'Lectura registrada exitosamente.');
@@ -57,27 +60,42 @@ class LecturasController extends Controller
     public function edit(Lecturas $lectura)
     {
         $users = User::all();
-        return view('LecturasEdit', compact('lectura', 'users'));
+        $generadores = Generadores::all();
+        $parametros = Parametros::all();
+        return view('LecturasEdit', compact('lectura', 'users', 'generadores', 'parametros'));
     }
 
     public function update(Request $request, Lecturas $lectura)
     {
-        $request->validate([
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
-            'shift_date' => 'required|date',
-            'user_id' => 'required|exists:users,id',
+        $validated = $request->validate([
+            'generador_id' => 'required|exists:generadores,id',
+            'parametros' => 'nullable|array',
+            'parametros.*' => 'required|numeric',
+            'fecha' => 'required|date',
         ]);
 
-        $lectura->update($request->all());
+        // Actualiza los datos de la lectura
+        $lectura->update([
+            'generador_id' => $validated['generador_id'],
+            'fecha' => $validated['fecha'],
+        ]);
 
-        return redirect()->route('LecturasIndex')->with('success', 'Lectura actualizada con éxito.');
+        // Sincroniza los parámetros
+        $syncData = [];
+        if (!empty($validated['parametros'])) {
+            foreach ($validated['parametros'] as $parametroId => $valor) {
+                $syncData[$parametroId] = ['valor' => $valor];
+            }
+        }
+        $lectura->parametros()->sync($syncData);
+
+        return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada con éxito.');
     }
 
     public function destroy(Lecturas $lectura)
     {
         $lectura->delete();
 
-        return redirect()->route('LecturasIndex')->with('success', 'Lectura eliminada con éxito.');
+        return redirect()->route('lecturas.index')->with('success', 'Lectura eliminada con éxito.');
     }
 }

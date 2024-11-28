@@ -29,6 +29,9 @@
                 <x-nav-link :href="route('lecturas.index')" :active="request()->routeIs('lecturas.*')" class="text-gray-900 hover:text-black hover:underline">
                     {{ __('Lecturas') }}
                 </x-nav-link>
+                <x-nav-link :href="route('lecturaparametro.index')" :active="request()->routeIs('lecturaparametro.*')" class="text-gray-900 hover:text-black hover:underline">
+                    {{ __('Registros') }}
+                </x-nav-link>
                     <!-- Añadir más enlaces de navegación aquí si es necesario -->
                 </div>
             </div>

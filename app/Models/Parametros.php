@@ -18,4 +18,11 @@ protected $fillable = [
     'min_value',
     'max_value',
 ];
+public function lecturas()
+{
+    return $this->belongsToMany(Lecturas::class, 'lecturaparametro', 'parametro_id', 'lectura_id')
+                ->withPivot('valor') // Campo adicional en la tabla pivote
+                ->withTimestamps();
+}
+
 }
