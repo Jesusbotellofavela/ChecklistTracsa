@@ -10,11 +10,8 @@ class Lecturas extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'generadores_id',
-        'user_id',
-        'fecha',
-    ];
+    protected $fillable = ['generador_id', 'user_id', 'fecha'];
+
 
     protected $casts = [
         'fecha' => 'datetime',

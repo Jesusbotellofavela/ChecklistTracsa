@@ -31,6 +31,7 @@ class LecturasController extends Controller
 
     public function store(Request $request)
     {
+
         // Validación de los datos de entrada
         $validated = $request->validate([
             'generador_id' => 'required|exists:generadores,id',
