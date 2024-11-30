@@ -10,11 +10,31 @@ use Illuminate\Http\Request;
 
 class LecturasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $lecturas = Lecturas::with('user', 'generador', 'parametros')->paginate(1);
+        // Inicializa la consulta base con las relaciones necesarias
+        $query = Lecturas::with('user', 'generador', 'parametros');
+
+        // Filtra por búsqueda si el parámetro 'search' está presente
+        if ($search = $request->input('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            })->orWhereHas('generador', function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%");
+            });
+        }
+    // Filtra por fecha específica si el parámetro está presente
+    if ($fecha = $request->input('fecha')) {
+        $query->whereDate('fecha', '=', $fecha);
+    }
+
+        // Pagina los resultados
+        $lecturas = $query->paginate(4);
+
+        // Retorna la vista con los datos filtrados
         return view('LecturasIndex', compact('lecturas'));
     }
+
 
     public function show(Lecturas $lectura)
     {

@@ -4,8 +4,30 @@
 <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
     <h1 class="text-3xl font-bold mb-6 text-gray-900 text-center">Lista de Lecturas</h1>
 
-    <div class="flex justify-end mb-6">
-        <a href="{{ route('lecturas.create') }}" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
+    <!-- Barra de búsqueda -->
+    <div class="flex justify-between items-center mb-6">
+        <form method="GET" action="{{ route('lecturas.index') }}" class="flex">
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Buscar por operador o generador..."
+                class="px-4 py-2 border border-gray-300 rounded-l-md focus:ring focus:ring-blue-500 focus:border-blue-500"
+            />
+                    <!-- Campo para buscar por fecha -->
+        <input
+            type="date"
+            name="fecha"
+            value="{{ request('fecha') }}"
+            class="px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500 focus:border-blue-500"
+        />
+            <button
+                type="submit"
+                class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-r-md hover:bg-blue-700">
+                Buscar
+            </button>
+        </form>
+        <a href="{{ route('lecturas.create') }}" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
             Nueva Lectura
         </a>
     </div>
@@ -17,6 +39,7 @@
         </div>
     @endif
 
+    <!-- Tabla de lecturas -->
     <div class="overflow-x-auto bg-white shadow rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -40,7 +63,7 @@
                             <ul>
                                 @foreach ($lectura->parametros as $parametro)
                                     <li>
-                                        <span class="font-bold text-blue-600">{{ $parametro->parameter_name }}</span>: {{ $parametro->pivot->valor }}
+                                        <span class="font-bold text-yellow-600">{{ $parametro->parameter_name }}</span>: {{ $parametro->pivot->valor }}
                                     </li>
                                 @endforeach
                             </ul>
@@ -63,6 +86,7 @@
         </table>
     </div>
 
+    <!-- Paginación -->
     <div class="mt-4">
         {{ $lecturas->links('pagination::tailwind') }}
     </div>
