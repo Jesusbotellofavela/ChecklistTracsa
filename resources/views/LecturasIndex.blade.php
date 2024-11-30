@@ -39,7 +39,9 @@
                         <td class="px-6 py-4 text-sm text-gray-500">
                             <ul>
                                 @foreach ($lectura->parametros as $parametro)
-                                    <li>{{ $parametro->name }}: {{ $parametro->pivot->valor }}</li>
+                                    <li>
+                                        <span class="font-bold text-blue-600">{{ $parametro->parameter_name }}</span>: {{ $parametro->pivot->valor }}
+                                    </li>
                                 @endforeach
                             </ul>
                         </td>

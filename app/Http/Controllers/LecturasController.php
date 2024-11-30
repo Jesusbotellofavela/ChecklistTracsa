@@ -12,7 +12,7 @@ class LecturasController extends Controller
 {
     public function index()
     {
-        $lecturas = Lecturas::with('user', 'generador', 'parametros')->paginate(10);
+        $lecturas = Lecturas::with('user', 'generador', 'parametros')->paginate(1);
         return view('LecturasIndex', compact('lecturas'));
     }
 
