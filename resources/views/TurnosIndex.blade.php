@@ -4,14 +4,21 @@
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold mb-6 text-gray-900 text-center">Lista de Turnos</h1>
 
-
-
-        <div class="mb-6">
+                <!-- Botón de nuevo turno -->
+                <div class="mb-6">
             <a href="{{ route('turnos.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                 Nuevo Turno
             </a>
         </div>
 
+        <!-- Calendario -->
+        <div class="mb-8">
+            <div id="calendar" style="width: 100%; height: 600px; background-color: lightgray;"></div>
+        </div>
+
+
+
+        <!-- Tabla de registros -->
         <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-8">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -31,7 +38,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $turno->start_time }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $turno->end_time }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $turno->shift_date }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $turno->user->name }}</td> <!-- Muestra el nombre del operador -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $turno->user->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ route('turnos.show', $turno->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
                                 <a href="{{ route('turnos.edit', $turno->id) }}" class="text-yellow-600 hover:text-yellow-900 ml-4">Editar</a>
@@ -46,10 +53,6 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="mt-8">
-            <div id="calendar" style="width: 100%; height: 600px; background-color: lightgray;"></div>
-        </div>
     </div>
 @endsection
 
@@ -61,7 +64,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 
     <!-- Script personalizado para inicializar el calendario -->
     <script>
@@ -88,5 +90,5 @@
             console.error("Elemento #calendar no encontrado.");
         }
     });
-</script>
+    </script>
 @endpush

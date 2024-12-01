@@ -5,11 +5,9 @@
         <div class="flex justify-between h-16 items-center">
             <div class="flex items-center">
                 <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <a href="{{ route('dashboard') }}">
-                    <x-application-logo class="h-8 w-auto fill-current text-black text-gray-900" />
-
-                    </a>
+                <div class="text-center mt-0 flex justify-center items-center h-16">
+                <a href="{{ route('dashboard') }}">
+                        <img src="{{ asset('images/energialogo.png') }}" alt="Logo Tracsa" class="max-w-full" style="width: 150px; height: auto;">
                 </div>
 
                 <!-- Navigation Links -->
@@ -52,7 +50,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Perfil') }}
                         </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout') }}">
@@ -60,7 +58,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Cerrar sesión') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
