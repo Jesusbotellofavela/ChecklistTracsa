@@ -11,6 +11,34 @@
             </a>
         </div>
 
+        <!-- Barra de búsqueda -->
+        <div class="mb-6">
+            <form method="GET" action="{{ route('turnos.index') }}">
+                <div class="flex items-center">
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Buscar por operador, fecha, etc."
+                        class="flex-grow px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        type="submit"
+                        class="ml-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                        Buscar
+                    </button>
+                    <a
+                    href="{{ route('turnos.index') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                    Limpiar
+                </a>
+                </div>
+            </form>
+        </div>
+
+
         <!-- Calendario -->
         <div class="mb-8">
             <div id="calendar" style="width: 100%; height: 600px; background-color: lightgray;"></div>

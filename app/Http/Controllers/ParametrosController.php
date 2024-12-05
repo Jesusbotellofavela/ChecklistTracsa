@@ -9,10 +9,22 @@ use Illuminate\Http\Request;
 class ParametrosController extends Controller
 {
     // Mostrar la lista de parámetros
-    public function index()
+    public function index(Request $request)
     {
-        $parametros = Parametros::all();
-        return view('parametrosIndex', compact('parametros'));
+        // Obtener el valor de búsqueda desde la solicitud
+        $search = $request->input('search');
+
+        // Filtrar los parámetros si hay un valor de búsqueda
+        $parametros = Parametros::query()
+            ->when($search, function ($query, $search) {
+                $query->where('parameter_name', 'like', "%{$search}%")
+                      ->orWhere('unit', 'like', "%{$search}%")
+                      ->orWhere('generadores_id', 'like', "%{$search}%");
+            })
+            ->get();
+
+        // Retornar la vista con los resultados y el valor de búsqueda
+        return view('parametrosIndex', compact('parametros', 'search'));
     }
 
     // Mostrar el formulario de creación

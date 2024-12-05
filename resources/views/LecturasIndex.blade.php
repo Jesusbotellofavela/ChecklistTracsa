@@ -26,6 +26,12 @@
                 class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-r-md hover:bg-blue-700">
                 Buscar
             </button>
+            <a
+                    href="{{ route('lecturas.index') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                    Limpiar
+                </a>
         </form>
         <a href="{{ route('lecturas.create') }}" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700">
             Nueva Lectura

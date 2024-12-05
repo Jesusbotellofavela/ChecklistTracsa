@@ -8,15 +8,23 @@ use Illuminate\Http\Request;
 class GeneradoresController extends Controller
 {
     // Método para mostrar la lista de generadores
-    public function index()
-{
-    try {
-        $generadores = Generadores::all(); // Obtener todos los generadores
-        return view('GeneradoresIndex', compact('generadores')); // Retornar la vista
-    } catch (\Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500); // Devolver error si falla
+    public function index(Request $request)
+    {
+        try {
+            $query = $request->input('search'); // Obtener el valor de búsqueda
+
+            // Filtrar los generadores si se proporciona un criterio de búsqueda
+            $generadores = Generadores::when($query, function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'like', "%$query%")
+                             ->orWhere('model', 'like', "%$query%")
+                             ->orWhere('serial_number', 'like', "%$query%");
+            })->get();
+
+            return view('GeneradoresIndex', compact('generadores', 'query'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500); // Devolver error si falla
+        }
     }
-}
 
 
 

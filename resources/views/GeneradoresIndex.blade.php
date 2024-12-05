@@ -5,13 +5,39 @@
         <h1 class="text-3xl font-bold mb-6 text-gray-900 text-center">Lista de Generadores</h1>
         @vite('resources/css/app.css')
 
-
+        <!-- Barra de búsqueda -->
         <div class="mb-6">
-            <a href="{{ route('generadores.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <form method="GET" action="{{ route('generadores.index') }}" class="flex items-center space-x-4">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Buscar por nombre, modelo o número de serie"
+                    value="{{ old('search', $query ?? '') }}"
+                    class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                />
+                <button
+                    type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    Buscar
+                </button>
+                <a
+                    href="{{ route('generadores.index') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                    Limpiar
+                </a>
+            </form>
+        </div>
+
+        <!-- Botón para crear un nuevo generador -->
+        <div class="mb-6">
+            <a href="{{ route('generadores.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
                 Nuevo Generador
             </a>
         </div>
 
+        <!-- Tabla de generadores -->
         <div class="overflow-x-auto bg-white shadow-md rounded-lg">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -24,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($generadores as $generador)
+                    @forelse ($generadores as $generador)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $generador->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $generador->name }}</td>
@@ -40,7 +66,13 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                No se encontraron resultados.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
