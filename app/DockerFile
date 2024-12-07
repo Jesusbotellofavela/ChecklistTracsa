@@ -1,0 +1,36 @@
+# 1. Imagen base de PHP con FPM y Composer
+FROM php:8.2-fpm
+
+# 2. Instalar dependencias necesarias
+# Instalar dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    zip unzip git curl libpng-dev libonig-dev libzip-dev nodejs npm && \
+    docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+
+
+# 3. Instalar Composer globalmente
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# 4. Establecer el directorio de trabajo en /app
+WORKDIR /app
+
+# 5. Copiar el contenido del proyecto al contenedor
+COPY . .
+
+# 6. Instalar dependencias de PHP
+RUN composer install --no-dev --optimize-autoloader
+
+# 7. Instalar dependencias de Node.js y construir assets
+RUN npm ci
+RUN npm run build
+
+# 8. Configurar permisos para Laravel
+RUN mkdir -p storage/ bootstrap/cache && chmod -R 755 storage/ bootstrap/cache
+RUN php artisan storage:link
+RUN php artisan optimize
+
+# 9. Exponer el puerto 9000 para PHP-FPM
+EXPOSE 9000
+
+# 10. Comando para iniciar PHP-FPM
+CMD ["php-fpm"]
