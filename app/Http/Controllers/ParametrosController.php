@@ -24,7 +24,7 @@ class ParametrosController extends Controller
             ->get();
 
         // Retornar la vista con los resultados y el valor de búsqueda
-        return view('parametrosIndex', compact('parametros', 'search'));
+        return view('ParametrosIndex', compact('parametros', 'search'));
     }
 
     // Mostrar el formulario de creación
