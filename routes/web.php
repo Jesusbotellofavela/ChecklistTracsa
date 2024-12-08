@@ -10,17 +10,19 @@ use App\Models\Turnos;
 use App\Models\Lecturas;
 use App\Models\LecturaParametro;
 use App\Models\Generadores;
-use App\Models\Parametros; // Asegúrate de que este sea el modelo correcto
+use App\Models\Parametros;
 use Illuminate\Support\Facades\Route;
 
-// Página de inicio
+// Página de inicio (no requiere autenticación)
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Rutas públicas, que no requieren autenticación
-Route::get('generadores/create', [GeneradoresController::class, 'create'])->name('generadores.create');
-Route::post('generadores', [GeneradoresController::class, 'store'])->name('generadores.store');
+// Rutas públicas (no requieren autenticación)
+Route::get('login', [Auth\AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('login', [Auth\AuthenticatedSessionController::class, 'store']);
+Route::get('register', [Auth\RegisteredUserController::class, 'create'])->name('register');
+Route::post('register', [Auth\RegisteredUserController::class, 'store']);
 
 // Agrupar rutas que requieren autenticación con el middleware 'auth'
 Route::middleware(['auth'])->group(function () {
@@ -37,11 +39,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas protegidas para el recurso Generadores
     Route::get('generadores', [GeneradoresController::class, 'index'])->name('generadores.index');
+    Route::get('generadores/create', [GeneradoresController::class, 'create'])->name('generadores.create');
+    Route::post('generadores', [GeneradoresController::class, 'store'])->name('generadores.store');
     Route::get('generadores/{id}', [GeneradoresController::class, 'show'])->name('generadores.show');
     Route::get('generadores/{id}/edit', [GeneradoresController::class, 'edit'])->name('generadores.edit');
     Route::put('generadores/{id}', [GeneradoresController::class, 'update'])->name('generadores.update');
     Route::delete('generadores/{id}', [GeneradoresController::class, 'destroy'])->name('generadores.destroy');
-
 
     // Rutas protegidas para otros recursos
     Route::resource('lecturas', LecturasController::class);
@@ -50,7 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('lecturas/{id}/edit', [LecturasController::class, 'edit'])->name('lecturas.edit');
     Route::put('lecturas/{id}', [LecturasController::class, 'update'])->name('lecturas.update');
     Route::delete('lecturas/{id}', [LecturasController::class, 'destroy'])->name('lecturas.destroy');
-
 
     // Grupo de rutas para parámetros
     Route::get('parametros', [ParametrosController::class, 'index'])->name('parametros.index');
