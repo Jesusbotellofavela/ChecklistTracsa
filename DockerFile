@@ -19,9 +19,8 @@ COPY . .
 # 6. Instalar dependencias de PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# 7. Instalar dependencias de Node.js y construir assets
-RUN npm ci || cat /app/npm-debug.log
-RUN npm run build
+# Paso 7: Instalar dependencias de Node.js y construir assets
+RUN npm ci || { echo "npm ci failed"; cat /app/npm-debug.log || echo "No npm-debug.log found"; exit 1; }
 
 # 8. Configurar permisos para Laravel
 RUN mkdir -p storage/ bootstrap/cache && chmod -R 755 storage/ bootstrap/cache
