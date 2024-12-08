@@ -3,8 +3,9 @@ FROM php:8.2-fpm
 
 # 2. Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libpng-dev libonig-dev libzip-dev nodejs npm && \
-    docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+    zip unzip git curl libpng-dev libonig-dev libzip-dev && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs python3 build-essential
 
 # 3. Instalar Composer globalmente
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -19,7 +20,7 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 # 7. Instalar dependencias de Node.js y construir assets
-RUN npm ci
+RUN npm ci || cat /app/npm-debug.log
 RUN npm run build
 
 # 8. Configurar permisos para Laravel
