@@ -1,0 +1,16 @@
+# Ignorar directorios y archivos innecesarios
+
+# Ignorar el directorio de control de versiones
+.git/
+
+# Ignorar dependencias de Node.js
+node_modules/
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar el archivo de configuración de entorno
+*.env
+
+# Ignorar las carpetas que se generan con los builds de Vite o similar
+/public/build/
