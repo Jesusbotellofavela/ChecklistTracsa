@@ -1,4 +1,5 @@
 @extends('layouts.guest')
+@section('content')
     <div class="min-h-screen flex flex-col sm:justify-center items-center bg-gray-900">
         <!-- Background Image and Overlay -->
         <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1661660860311-dc26ed236d5f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
