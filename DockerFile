@@ -23,13 +23,12 @@ RUN npm ci
 RUN npm run build
 
 # 8. Configurar permisos para Laravel
-RUN mkdir -p storage/ bootstrap/cache && \
-    chown -R www-data:www-data storage bootstrap/cache && \
-    chmod -R 755 storage bootstrap/cache
-
-# 9. Crear enlaces simbólicos y optimizar el entorno de Laravel
+RUN mkdir -p storage/ bootstrap/cache && chmod -R 755 storage/ bootstrap/cache
 RUN php artisan storage:link
 RUN php artisan optimize
+
+# 9. Ejecutar migraciones al construir el contenedor
+RUN php artisan migrate --force
 
 # 10. Exponer el puerto 9000 para PHP-FPM
 EXPOSE 9000
