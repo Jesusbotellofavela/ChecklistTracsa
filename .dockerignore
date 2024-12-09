@@ -9,7 +9,6 @@ node_modules/
 # Ignorar archivos de log
 *.log
 
-# Ignorar el archivo de configuración de entorno
-*.env
+
 
 
