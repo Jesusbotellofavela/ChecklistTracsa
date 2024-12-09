@@ -30,7 +30,7 @@ class ParametrosController extends Controller
     // Mostrar el formulario de creación
     public function create()
     {
-        return view('parametrosCreate');
+        return view('ParametrosCreate');
     }
 
     // Almacenar un nuevo parámetro
@@ -52,13 +52,13 @@ class ParametrosController extends Controller
     public function show(Parametros $parametro)
     {
 
-        return view('parametrosShow', compact('parametro'));
+        return view('ParametrosShow', compact('parametro'));
     }
 
     // Mostrar el formulario de edición
     public function edit(Parametros $parametro)
     {
-        return view('parametrosEdit', compact('parametro'));
+        return view('ParametrosEdit', compact('parametro'));
     }
 
     // Actualizar un parámetro existente

@@ -16,7 +16,7 @@ class LecturaParametroController extends Controller
     {
         $lecturaParametros = LecturaParametro::with(['lectura', 'parametro'])->paginate(10);
 
-        return view('lecturaparametroIndex', compact('lecturaParametros'));
+        return view('LecturaparametroIndex', compact('LecturaParametros'));
     }
 
     /**
@@ -27,7 +27,7 @@ class LecturaParametroController extends Controller
         $lecturas = Lectura::all();
         $parametros = Parametro::all();
 
-        return view('lecturaparametroCreate', compact('lecturas', 'parametros'));
+        return view('LecturaparametroCreate', compact('lecturas', 'parametros'));
     }
 
     /**
@@ -51,7 +51,7 @@ class LecturaParametroController extends Controller
      */
     public function show(LecturaParametro $lecturaParametro)
     {
-        return view('lecturaparametroShow', compact('lecturaParametro'));
+        return view('LecturaparametroShow', compact('LecturaParametro'));
     }
 
     /**
@@ -62,7 +62,7 @@ class LecturaParametroController extends Controller
         $lecturas = Lectura::all();
         $parametros = Parametro::all();
 
-        return view('lecturaparametroEdit', compact('lecturaParametro', 'lecturas', 'parametros'));
+        return view('LecturaParametroEdit', compact('LecturaParametro', 'lecturas', 'parametros'));
     }
 
     /**
