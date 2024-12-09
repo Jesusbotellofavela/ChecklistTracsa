@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('generadores/{id}', [GeneradoresController::class, 'destroy'])->name('generadores.destroy');
 
     // Rutas protegidas para otros recursos
-    Route::resource('lecturas', LecturasController::class);
+
     Route::get('lecturas', [LecturasController::class, 'index'])->name('lecturas.index');
     Route::get('lecturas/{id}', [LecturasController::class, 'show'])->name('lecturas.show');
     Route::get('lecturas/{id}/edit', [LecturasController::class, 'edit'])->name('lecturas.edit');
