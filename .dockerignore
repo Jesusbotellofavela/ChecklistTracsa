@@ -12,5 +12,4 @@ node_modules/
 # Ignorar el archivo de configuración de entorno
 *.env
 
-# Ignorar las carpetas que se generan con los builds de Vite o similar
-/public/build/
+
