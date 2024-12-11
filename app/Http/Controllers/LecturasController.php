@@ -69,8 +69,9 @@ class LecturasController extends Controller
         return redirect()->route('lecturas.index')->with('success', 'Lectura registrada exitosamente.');
     }
 
-    public function edit(Lecturas $lectura)
+    public function edit(Lecturas $lectura, $id)
     {
+        $lectura = Lecturas::findOrFail($id);
         $users = User::all();
         $generadores = Generadores::all();
         $parametros = Parametros::all();
