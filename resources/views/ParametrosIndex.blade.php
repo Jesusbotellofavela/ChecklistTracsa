@@ -62,7 +62,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->max_value }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $parametro->unit }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ route('parametros.show', $parametro->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
+                               {{-- <a href="{{ route('parametros.show', $parametro->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a> --}}
                                 <a href="{{ route('parametros.edit', $parametro->id) }}" class="text-yellow-600 hover:text-yellow-900 ml-4">Editar</a>
                                 <form action="{{ route('parametros.destroy', $parametro->id) }}" method="POST" class="inline ml-4">
                                     @csrf

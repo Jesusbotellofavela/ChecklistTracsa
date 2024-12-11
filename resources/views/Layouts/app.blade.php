@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <link rel="icon" href="{{ asset('energialogo.png') }}" type="image/x-icon">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap">
         <!-- FullCalendar CSS -->
