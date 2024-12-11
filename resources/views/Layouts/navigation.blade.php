@@ -86,19 +86,19 @@
             <x-responsive-nav-link :href="route('generadores.index')" :active="request()->routeIs('generadores.*')">
                  {{ __('Generadores') }}
             </x-responsive-nav-link>
-        </div>
+
         <x-responsive-nav-link :href="route('parametros.index')" :active="request()->routeIs('parametros.*')">
                  {{ __('Parametros') }}
             </x-responsive-nav-link>
-        </div>
+
         <x-responsive-nav-link :href="route('turnos.index')" :active="request()->routeIs('turnos.*')">
                  {{ __('Turnos') }}
             </x-responsive-nav-link>
-        </div>
+
         <x-responsive-nav-link :href="route('lecturas.index')" :active="request()->routeIs('lecturas.*')">
                  {{ __('Lecturas') }}
             </x-responsive-nav-link>
-        </div>
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -109,7 +109,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
@@ -117,7 +117,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Cerrar sesion') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
