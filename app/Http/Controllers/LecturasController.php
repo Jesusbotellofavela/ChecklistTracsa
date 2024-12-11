@@ -81,31 +81,33 @@ class LecturasController extends Controller
     public function update(Request $request, Lecturas $lectura, $id)
     {
         // Encuentra la lectura que se va a editar
+    // Encuentra la lectura que se va a editar
     $lectura = Lecturas::findOrFail($id);
-        $validated = $request->validate([
-            'generador_id' => 'required|exists:generadores,id',
-            'parametros' => 'nullable|array',
-            'parametros.*' => 'required|numeric',
-            'fecha' => 'required|date',
-        ]);
 
-        $lectura->update([
-            'generador_id' => $validated['generador_id'],
-            'fecha' => $validated['fecha'],
-        ]);
+    // Valida la solicitud
+    $validated = $request->validate([
+        'generador_id' => 'required|exists:generadores,id',
+        'parametros' => 'nullable|array',
+        'parametros.*' => 'required|numeric|min:0', // Cada valor debe ser numérico y positivo
+        'fecha' => 'required|date',
+    ]);
 
-        $syncData = [];
-        if (!empty($validated['parametros'])) {
-            foreach ($validated['parametros'] as $parametroId => $valor) {
-                $syncData[$parametroId] = ['valor' => $valor];
-            }
+    // Actualiza los datos principales de la lectura
+    $lectura->update([
+        'generador_id' => $validated['generador_id'],
+        'fecha' => $validated['fecha'],
+    ]);
+
+    // Actualiza los valores en la tabla pivote
+    if (!empty($validated['parametros'])) {
+        foreach ($validated['parametros'] as $parametroId => $valor) {
+            $lectura->parametros()->updateExistingPivot($parametroId, ['valor' => $valor]);
         }
-
-        $lectura->parametros()->sync($syncData);
-
-        return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada con éxito.');
     }
 
+    // Redirige con un mensaje de éxito
+    return redirect()->route('lecturas.index')->with('success', 'Lectura actualizada con éxito.');
+}
     public function destroy(Lecturas $lectura)
     {
         $lectura->delete();
