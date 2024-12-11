@@ -56,14 +56,16 @@ class ParametrosController extends Controller
     }
 
     // Mostrar el formulario de edición
-    public function edit(Parametros $parametro)
+    public function edit(Parametros $parametro, $id)
     {
+        $parametro = Parametros::findOrFail($id);
         return view('ParametrosEdit', compact('parametro'));
     }
 
     // Actualizar un parámetro existente
-    public function update(Request $request, Parametros $parametro)
+    public function update(Request $request, Parametros $parametro, $id)
     {
+        $parametro = Parametros::findOrFail($id);
         $validatedData = $request->validate([
             'generadores_id' => 'required|integer',
             'parameter_name' => 'required|string|max:255',
