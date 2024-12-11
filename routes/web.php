@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
     // Rutas protegidas para otros recursos
 
     Route::get('lecturas', [LecturasController::class, 'index'])->name('lecturas.index');
+    Route::get('lecturas/create', [LecturasController::class, 'create'])->name('lecturas.create');
+    Route::post('lecturas', [lecturasController::class, 'store'])->name('lecturas.store');
     Route::get('lecturas/{id}', [LecturasController::class, 'show'])->name('lecturas.show');
     Route::get('lecturas/{id}/edit', [LecturasController::class, 'edit'])->name('lecturas.edit');
     Route::put('lecturas/{id}', [LecturasController::class, 'update'])->name('lecturas.update');
