@@ -78,8 +78,10 @@ class LecturasController extends Controller
         return view('LecturasEdit', compact('lectura', 'users', 'generadores', 'parametros'));
     }
 
-    public function update(Request $request, Lecturas $lectura)
+    public function update(Request $request, Lecturas $lectura, $id)
     {
+        // Encuentra la lectura que se va a editar
+    $lectura = Lecturas::findOrFail($id);
         $validated = $request->validate([
             'generador_id' => 'required|exists:generadores,id',
             'parametros' => 'nullable|array',
