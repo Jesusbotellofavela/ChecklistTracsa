@@ -91,11 +91,11 @@
                  {{ __('Parametros') }}
             </x-responsive-nav-link>
         </div>
-        <x-responsive-nav-link :href="route('Turnos.index')" :active="request()->routeIs('turnos.*')">
+        <x-responsive-nav-link :href="route('turnos.index')" :active="request()->routeIs('turnos.*')">
                  {{ __('Turnos') }}
             </x-responsive-nav-link>
         </div>
-        <x-responsive-nav-link :href="route('Lecturas.index')" :active="request()->routeIs('lecturas.*')">
+        <x-responsive-nav-link :href="route('lecturas.index')" :active="request()->routeIs('lecturas.*')">
                  {{ __('Lecturas') }}
             </x-responsive-nav-link>
         </div>
